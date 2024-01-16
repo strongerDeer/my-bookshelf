@@ -22,8 +22,13 @@
       "#types/*": ["types/*"],
       "#component/*": ["component/*"],
       "#utils/*": ["utils/*"]
-    }
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-  "include": ["next-eng.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-eng.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }
