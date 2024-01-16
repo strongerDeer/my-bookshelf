@@ -1,0 +1,29 @@
+{
+  "$scheme": "https://json.schemastore.org/tsconfig.json",
+  "compilerOptions": {
+    "target": "ES5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": "src",
+    "paths": {
+      "#pages/*": ["pages/*"],
+      "#hoosk/*": ["hoosk/*"],
+      "#types/*": ["types/*"],
+      "#component/*": ["component/*"],
+      "#utils/*": ["utils/*"]
+    }
+  },
+  "include": ["next-eng.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}
