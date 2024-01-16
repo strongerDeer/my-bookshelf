@@ -15,8 +15,8 @@ jobs:
         with:
           node-version: 16
       - name: 'install dependencies'
-        working-directory: ./build
+        # working-directory: /build
         run: npm ci
       - name: 'build'
-        working-directory: ./build
+        # working-directory: /build
         run: npm run build
