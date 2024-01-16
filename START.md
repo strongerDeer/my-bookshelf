@@ -116,3 +116,34 @@ const nextConfig = {
 
 module.exports = nextConfig
 ```
+
+---
+
+# 깃헙액션 설정
+
+- `.github/workflows/{파일명}.yml`
+
+```yml
+name: build # 액션 이름. 필수값 X
+run-name: ${{ github.actor }} has been added new commit # 액션이 실행될 때 구별할 수 있는 타이틀. 필수값 X, 미설정시 풀리퀘스트 이름, 또는 마지막 커밋 메시지등 출력
+
+on: # 필수값. 언제 이 액선을 실행할지 정의
+  push: # 원격 저장소의 푸시가 발생했을 때 실행
+  branches-ignore: # 'main' 브랜치에 푸시가 발생했을 때는 실행 X('main'의 직접적인 푸시는 풀 리퀘스트가 머지됐을때만 일어남. 이 풀 리퀘스트 머디 단계에서 이미 해당 액션으로 CI를 통과했을 것. main을 제외하지 않는다면 CI 중복 실행이 발생함.)
+    - 'main'
+
+jobs: # 필수랎. 해당 액션에서 수행할 잡을 의미, 한개 이상 설정 가능(병렬 실행)
+  build: # 임의 지정 이름. name과 같은 역할. 들여쓰기 주의!
+    runs-on: ubuntu-latest # 어느 환경에서 해당 작업이 실행될지 결정. 별도의 러너 없이 깃허브에서 제공하는 서버를 쓰고 싶다면 'ubuntu-latest'. 커스텀 시  'Setting->Actions->Runners'에서 추가
+    steps: # 순차적으로 수행할 작업 # use 이것들을 사용해서 작업하겠다
+      - uses: actions/checkout@v3 # 깃허브에서 제공하는 기본 액션, 별도 파라미터가 없을 시 해당 브랜치의 마지막 커밋을 기준으로 체크아웃! 필수 작성!!
+      - uses: actions/setup-node@v3 # 깃허브에서 제공하는 기본 액션,해당 러너에 Node.js를 설치.
+        with:
+          node-version: 18 # 버전
+      - name: 'install dependencies' # 해당 스텝의 명칭
+        working-directory: ./build # 뒤에 수행할 작업을 해당 디렉터리에서 수행하겠다는 뜻.
+        run: npm ci # 의존성 설치
+      - name: 'build' # CI를 위한 작업
+        working-directory: ./build
+        run: npm run build
+```
